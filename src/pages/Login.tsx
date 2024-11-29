@@ -16,6 +16,7 @@ import {useUser} from '../contexts/GlobalContext';
 import {auth} from '../components/FirebaseConfig.tsx';
 import SignupDialog from '../components/Signup';
 import {useAuth} from '../contexts/AuthContext';
+import loginSignupAnimation from "../assets/lottieFiles/loginSignupAnimation.json"
 
 const Container = styled(Box)(({theme}) => ({
     display: 'flex',
@@ -24,7 +25,6 @@ const Container = styled(Box)(({theme}) => ({
     alignItems: 'center',
     width: '100%',
     height: '84vh',
-    backgroundColor: 'beige',
     [theme.breakpoints.down('sm')]: {
         display: 'block'
     }, [theme.breakpoints.down('md')]: {
@@ -71,11 +71,7 @@ const LottieContainers = styled(Box)(({theme}) => ({
 
 const LoginBox = styled(Box)(({theme}) => ({
     backgroundColor: 'white',
-    borderRadius: '10%',
-    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-    padding: '24px',
-    maxWidth: '300px',
-    maxHeight: 'fit-content',
+    padding: '1rem',
     [theme.breakpoints.down('sm')]: {
         boxShadow: 'none',
         position: 'absolute',
@@ -94,6 +90,27 @@ const LoginBox = styled(Box)(({theme}) => ({
     },
 }));
 
+
+const LeftSection = styled(Box)(({ theme }) => ({
+    flex: 1, // Take equal space
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+ 
+    [theme.breakpoints.down('sm')]: {
+        flexBasis: '50%', // Adjust height for small screens
+    },
+}));
+
+const RightSection = styled(Box)(({ theme }) => ({
+    flex: 1, // Take equal space
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    [theme.breakpoints.down('sm')]: {
+        flexBasis: '50%', // Adjust height for small screens
+    },
+}));
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -138,10 +155,8 @@ const Login = () => {
 
     return (<>
         <Container>
-            <LottieContainers>
-                <Lottie animationData={loginAnimation}/>
-            </LottieContainers>
-            <LoginBox>
+         <LeftSection><Lottie animationData={loginSignupAnimation} style={{ width: '400px', height: '400px' }}/></LeftSection>
+         <RightSection>   <LoginBox>
                 <form onSubmit={handleLogin}>
                     <TextField
                         label="Email"
@@ -180,11 +195,7 @@ const Login = () => {
                 >
                     Don’t have an account? Sign Up
                 </Button>
-            </LoginBox>
-            <LottieContainers>
-                <Lottie animationData={loginAnimation2}
-                />
-            </LottieContainers>
+            </LoginBox></RightSection>
         </Container>
         <SignupDialog open={openSignup} onClose={handleCloseSignup}/>
     </>)
